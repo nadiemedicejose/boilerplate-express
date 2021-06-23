@@ -57,10 +57,24 @@ app.use("/public", express.static(public));
  * TODO: Build a simple logger. For every request, it should log to the console a string taking the following format: "method path - ip". An example would look like this: "GET /json - ::ffff:127.0.0.1". Note that there is a space between method and path and that the dash separating path and ip is surrounded by a space on both sides. You can get the request method (http verb), the relative route path, and the caller’s ip from the request object using req.method, req.path and req.ip. Remember to call next() when you are done, or your server will be stuck forever. Be sure to have the ‘Logs’ opened, and see what happens when some request arrives.
  * Note: Express evaluates functions in the order they appear in the code. This is true for middleware too. If you want it to work for all the routes, it should be mounted before them.
  */
-app.use(function(req, res, next) {
+/* app.use(function(req, res, next) {
   let logger = req.method + ' ' + req.path + ' - ' + req.ip;
   console.log(logger);
   next();
+}); */
+
+/**
+ * TODO: In the route app.get('/now', ...) chain a middleware function and the final handler. In the middleware function you should add the current time to the request object in the req.time key. You can use new Date().toString(). In the handler, respond with a JSON object, taking the structure {time: req.time}.
+ * Note: The test will not pass if you don’t chain the middleware. If you mount the function somewhere else, the test will fail, even if the output result is correct.
+ */
+app.get('/now', function(req, res, next){
+  req.time = new Date().toString();
+  res.get(req.time);
+  next();
+}, function(req, res){
+  res.json({
+    time: req.time
+  });
 });
 
 module.exports = app;
