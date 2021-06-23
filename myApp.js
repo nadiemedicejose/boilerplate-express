@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+require('dotenv').config();
 
 // TODO: Log "Hello World" to the console.
 // console.log("Hello World");
@@ -28,10 +29,28 @@ app.use("/public", express.static(public));
 /**
  * TODO: Serve the object {"message": "Hello json"} as a response, in JSON format, to GET requests to the /json route. Then point your browser to your-app-url/json, you should see the message on the screen.
  */
-app.get("/json", (req, res) => {
+/* app.get("/json", (req, res) => {
   res.json({
     message: "Hello json"
   });
+}); */
+
+/**
+ * Let's add an environment variable as a configuration option.
+ * TODO: Create a .env file in the root of your project directory, and store the variable MESSAGE_STYLE=uppercase in it.
+ * TODO: Then, in the /json GET route handler you created in the last challenge, transform the response object's message to uppercase if process.env.MESSAGE_STYLE equals uppercase. The response object should either be {"message": "Hello json"} or {"message": "HELLO JSON"}, depending on the MESSAGE_STYLE value.
+ * Note: If you are using Replit, you cannot create a .env file. Instead, use the built-in SECRETS tab to add the variable.
+ */
+app.get("/json", (req, res) => {
+  if (process.env.MESSAGE_STYLE == "uppercase") {
+    res.json({
+      message: "Hello json".toUpperCase()
+    });
+  } else {
+    res.json({
+      message: "Hello json"
+    });
+  }
 });
 
 module.exports = app;
