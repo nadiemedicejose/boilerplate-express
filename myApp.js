@@ -18,4 +18,11 @@ app.get("/", function(req, res) {
   res.sendFile(index);
 });
 
+/**
+ * TODO: Mount the express.static() middleware to the path /public with app.use(). The absolute path to the assets folder is __dirname + /public.
+ * Now your app should be able to serve a CSS stylesheet. Note that the /public/style.css file is referenced in the /views/index.html in the project boilerplate. Your front-page should look a little better now!
+ */
+public = __dirname + "/public";
+app.use("/public", express.static(public));
+
 module.exports = app;
