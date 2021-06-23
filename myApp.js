@@ -67,7 +67,7 @@ app.use("/public", express.static(public));
  * TODO: In the route app.get('/now', ...) chain a middleware function and the final handler. In the middleware function you should add the current time to the request object in the req.time key. You can use new Date().toString(). In the handler, respond with a JSON object, taking the structure {time: req.time}.
  * Note: The test will not pass if you don’t chain the middleware. If you mount the function somewhere else, the test will fail, even if the output result is correct.
  */
-app.get('/now', function(req, res, next){
+/* app.get('/now', function(req, res, next){
   req.time = new Date().toString();
   res.get(req.time);
   next();
@@ -75,6 +75,16 @@ app.get('/now', function(req, res, next){
   res.json({
     time: req.time
   });
+}); */
+
+/**
+ * TODO: Build an echo server, mounted at the route GET /:word/echo. Respond with a JSON object, taking the structure {echo: word}. You can find the word to be repeated at req.params.word. You can test your route from your browser's address bar, visiting some matching routes, e.g. your-app-rootpath/freecodecamp/echo.
+ */
+app.get('/:word/echo', function(req, res, next) {
+  res.json({
+    echo: req.params.word
+  });
+  next();
 });
 
 module.exports = app;
