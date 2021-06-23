@@ -92,7 +92,7 @@ app.get('/:word/echo', function(req, res, next) {
  * TODO: Build an API endpoint, mounted at GET /name. Respond with a JSON document, taking the structure { name: 'firstname lastname'}. The first and last name parameters should be encoded in a query string e.g. ?first=firstname&last=lastname.
  * Note: In the following exercise you are going to receive data from a POST request, at the same /name route path. If you want, you can use the method app.route(path).get(handler).post(handler). This syntax allows you to chain different verb handlers on the same path route. You can save a bit of typing, and have cleaner code.
  */
-const getName = (req, res, next) => {
+/* const getName = (req, res, next) => {
   let firstName = req.query.first;
   let lastName = req.query.last;
   res.json({
@@ -101,12 +101,27 @@ const getName = (req, res, next) => {
   next();
 };
 
-app.route('/name').get(getName).post(getName);
+app.route('/name').get(getName).post(getName); */
 
 /**
  * TODO: Install the body-parser module in your package.json. Then, require it at the top of the file. Store it in a variable named bodyParser. The middleware to handle urlencoded data is returned by bodyParser.urlencoded({extended: false}). Pass to app.use() the function returned by the previous method call. As usual, the middleware must be mounted before all the routes which need it.
  * Note: extended=false is a configuration option that tells the parser to use the classic encoding. When using it, values can be only strings or arrays. The extended version allows more data flexibility, but it is outmatched by JSON.
  */
+/* app.use(bodyParser.urlencoded({extended: false})); */
+
+/**
+ * TODO: Mount a POST handler at the path /name. It’s the same path as before. We have prepared a form in the html frontpage. It will submit the same data of exercise 10 (Query string). If the body-parser is configured correctly, you should find the parameters in the object req.body.
+ * Respond with the same JSON object as before: {name: 'firstname lastname'}. Test if your endpoint works using the html form we provided in the app frontpage.
+ */
 app.use(bodyParser.urlencoded({extended: false}));
+
+app.post('/name', (req, res, next) => {
+  let firstName = req.body.first;
+  let lastName = req.body.last;
+  res.json({
+    name: `${firstName} ${lastName}`
+  });
+  next();
+});
 
 module.exports = app;
